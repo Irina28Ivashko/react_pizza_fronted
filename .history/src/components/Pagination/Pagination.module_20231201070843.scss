@@ -1,0 +1,17 @@
+.root {
+  li {
+    display: inline-block;
+    justify-content: center;
+    align-self: center;
+   width: 40px;
+   height: 40px;
+    border: 1 px solid #fe5f1e
+    border-radius: 30px;
+  }
+
+//   :global {
+//     .previous {
+//       background-color: red;
+//     }
+  }
+}

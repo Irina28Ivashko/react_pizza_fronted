@@ -1,0 +1,13 @@
+.root {
+  li {
+    padding: 10px;
+    border: 1 px solid #fe5f1e
+    border-radius: 30px;
+  }
+
+  :global {
+    .previous {
+      background-color: red;
+    }
+  }
+}

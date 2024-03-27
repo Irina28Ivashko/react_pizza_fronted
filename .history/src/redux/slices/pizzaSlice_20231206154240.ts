@@ -1,0 +1,57 @@
+import axios from "axios";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { RootState } from "../store";
+import { CartItem } from "./cartSlice";
+
+type Pizza = {
+  id: string;
+  title: string;
+  price: number;
+  imageUrl: string;
+  sizes: number[];
+  types: number[];
+  rating: number;
+};
+
+interface PizzaSliceState {
+  items: Pizza[];
+  status: "loading" | "succes" | "error";
+}
+
+const initialState: PizzaSliceState = {
+  items: [],
+  status: "loading",
+};
+
+const pizzaSlice = createSlice({
+  name: "pizza",
+  initialState,
+  reducers: {
+    setItems(state, action: PayloadAction<CartItem[]>) {
+      state.items = action.payload;
+    },
+  },
+
+  extraReducers: (builder) => {
+    builder.addCase(fetchPizzas.pending, (state, action) => {
+      state.status = "loading";
+      state.items = [];
+    });
+
+    builder.addCase(fetchPizzas.fulfilled, (state, action) => {
+      state.items = action.payload;
+      state.status = "success";
+    });
+
+    builder.addCase(fetchPizzas.rejected, (state, action) => {
+      state.status = "error";
+      state.items = [];
+    });
+  },
+});
+
+export const selectPizzaData = (state: RootState) => state.pizza;
+
+export const { setItems } = pizzaSlice.actions;
+
+export default pizzaSlice.reducer;
